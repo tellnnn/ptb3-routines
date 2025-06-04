@@ -23,9 +23,6 @@ function img = makeMask(params)
 %    img = makeMask('type', 'ramp');
 %    img = makeMask('type', 'circle', 'radius', 0.5);
 %    img = makeMask('type', 'gauss', 'sigma', 0.3);
-%    
-%  History:
-%    2025-04-26: Created by Teruaki Kido under MATLAB R2024b.
 
 arguments (Input)
     params.res (1,1) double {mustBePositive} = 256 % resolution of the image (default 256)

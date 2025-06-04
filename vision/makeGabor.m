@@ -20,9 +20,6 @@ function img = makeGabor(res, gratingParams, maskParams)
 %    freq = 1; % spatial frequency in degree
 %    sigma = 2.5; % standard deviation of Gaussian window in degree
 %    img = makeGabor('freq', freq * diameter, 'sigma', sigma / diameter);
-%
-%  History:
-%    2025-04-26: Created by Teruaki Kido under MATLAB R2024b.
 
 arguments (Input)
     res (1,1) double {mustBePositive} = 256 % resolution of the image (default 256)

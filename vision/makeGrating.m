@@ -24,9 +24,6 @@ function img = makeGrating(params)
 %    img = makeGrating;
 %    img = makeGrating('res', 512);
 %    img = makeGrating('ori', -45);
-%
-%  History:
-%    2025-04-26: Created by Teruaki Kido under MATLAB R2024b.
 
 arguments (Input)
     params.res (1,1) double {mustBePositive} = 256 % resolution of the image (default 256)
