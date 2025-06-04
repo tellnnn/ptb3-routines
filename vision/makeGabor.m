@@ -29,8 +29,6 @@ arguments (Input)
     gratingParams.phase (1,1) double = 0 % phase in degrees (default 0)
     gratingParams.contrast (1,1) double {mustBeInRange(gratingParams.contrast, 0, 1)} = 1 % contrast (0 to 1: default 1)
 
-    maskParams.type (1,1) string {mustBeMember(maskParams.type, {'ramp', 'circle', 'gauss'})} = 'gauss' % type of mask (default 'gauss')
-    maskParams.radius (1,1) double {mustBeInRange(maskParams.radius, 0, 1)} = 1.0 % radius of the mask in fraction of the image size (default 1.0)
     maskParams.sigma (1,1) double {mustBePositive} = 0.3 % standard deviation of the Gaussian in fraction of the image size (default 0.3)
 end
 
@@ -38,16 +36,9 @@ arguments (Output)
     img (:,:) double {mustBeInRange(img, -1, 1)} % Gabor image with values between -1 and 1 in size (res, res)
 end
 
-ori = gratingParams.ori;
-freq = gratingParams.freq;
-phase = gratingParams.phase;
-contrast = gratingParams.contrast;
-grating = makeGrating('res', res, 'ori', ori, 'freq', freq, 'phase', phase, 'contrast', contrast);
+grating = makeGrating('res', res, 'ori', gratingParams.ori, 'freq', gratingParams.freq, 'phase', gratingParams.phase, 'contrast', gratingParams.contrast);
 
-type = maskParams.type;
-radius = maskParams.radius;
-sigma = maskParams.sigma;
-gauss = makeMask('res', res, 'type', type, 'radius', radius, 'sigma', sigma);
+gauss = makeMask('res', res, 'type', 'gauss', 'sigma', maskParams.sigma);
 
 img = grating .* gauss;
 
