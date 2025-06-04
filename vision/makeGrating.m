@@ -8,11 +8,12 @@ function img = makeGrating(params)
 %    params: name-value pairs
 %      - res: resolution of the image (default 256)
 %      - ori: orientation in degrees (0 indicates vertical: default 0)
-%      - freq: spatial frequency in cycles (default 1)
-%          The output image has contains 'freq' cycles regardless of the image size.
-%          If freq = 2 and the output image is supposed to be presented as 10-degree image,
-%          the spatial frequency will be 0.2 cycles per degree.
-%          To account for this, the input to 'freq' parameter should be multiplied by the image size in degrees.
+%      - freq: spatial frequency in cycles per image (default 1)
+%          Note that the frequency is defined in cycles per image, not per degree.
+%          This means that if the output image is 10 degree and freq = 1,
+%          the spatial frequency will be 0.1 cycles per degree.
+%          In order to control the spatial frequency in cycles per degree,
+%          you need to multiply the input frequency by the image size in degrees.
 %      - phase: phase in degrees (default 0)
 %      - contrast: contrast (0 to 1: default 1)
 %  
