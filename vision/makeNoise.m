@@ -31,7 +31,7 @@ end
 
 switch params.type
     case 'none'
-        img = zeros(params.res) * 0.5;
+        img = ones(params.res);
     case 'uniform'
         img = rand(params.res, params.res);
         % normalize to [-1, 1]
