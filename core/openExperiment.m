@@ -76,7 +76,7 @@ try
         case 'test'
             Screen('Preference', 'SkipSyncTests', 0);
         otherwise
-            error('Unknown mode: %s', mode);
+            error('PTB3-ROUTINES:UnknownExpMode', 'Unknown mode: %s', mode);
     end
 
     % open window
@@ -118,7 +118,7 @@ try
     [keyIsDown, ~, keyCode, ~] = KbCheck();
     if keyIsDown
         DisableKeysForKbCheck(find(keyCode));
-        fprintf('Warning: Following keys are pressed at the start of the experiment and disabled hereafter.\n');
+        warning('PTB3-ROUTINES:DisabledKeys', 'Following keys are pressed at the start of the experiment and disabled hereafter.\n');
         cellfun(@(x) fprintf('  - %s\n', x), KbName(keyCode));
     end
 
@@ -132,7 +132,7 @@ try
             HideCursor();
             Priority(MaxPriority(win.ptr));
         otherwise
-            error('Unknown mode: %s', mode);
+            error('PTB3-ROUTINES:UnknownExpMode', 'Unknown mode: %s', mode);
     end
 
 catch err
