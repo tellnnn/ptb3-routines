@@ -51,26 +51,26 @@ for col = 1:numel(participants.Properties.VariableNames)
     end
 
     if strcmp(name, 'participant_id')
-        % set descrition and units for participant_id
+        % set description and units for participant_id
         participants.Properties.VariableDescriptions{col} = 'Participant identifier';
         participants.Properties.VariableUnits{col} = '';
     else
         % get the field from the json file
-        spec = getfield(json, name);
+        spec = json.(name);
         
         % set description for the column
-        participants.Properties.VariableDescriptions{col} = getfield(spec, 'Description');
+        participants.Properties.VariableDescriptions{col} = spec.('Description');
 
         % set units for the column
         if isfield(spec, 'Units')
-            participants.Properties.VariableUnits{col} = getfield(spec, 'Units');
+            participants.Properties.VariableUnits{col} = spec.('Units');
         else
             participants.Properties.VariableUnits{col} = '';
         end
 
         % convert the column to categorical if it has levels
         if isfield(spec, 'Levels')
-            levels = fieldnames(getfield(spec, 'Levels'))';
+            levels = fieldnames(spec.('Levels'))';
             participants{:, col} = categorical(participants{:, col}, levels);
         end
     end
