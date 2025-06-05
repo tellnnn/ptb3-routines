@@ -1,6 +1,6 @@
 function closeExperiment(Exp, err)
 % closeExperiment close an experiment.
-%   loseExperiment(Exp, err)
+%   closeExperiment(Exp, err)
 %
 %   Input:
 %     Exp: struct containing experiment parameters
