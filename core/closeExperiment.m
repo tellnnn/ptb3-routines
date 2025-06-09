@@ -25,7 +25,7 @@ RestoreCluts();
 PsychPortAudio('Close');
 Screen('CloseAll');
 
-Exp.endDatetime = datetime('now', 'Format', 'uuuu-MM-dd''T''HH:mm:ss');
+Exp.endDatetime = now_iso8601();
 
 if isempty(err)
     Exp.endStatus = 1;

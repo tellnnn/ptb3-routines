@@ -56,7 +56,7 @@ end
 
 try
     %% Random Number Generator
-    Exp.startDatetime = datetime('now', 'Format', 'uuuu-MM-dd''T''HH:mm:ss');
+    Exp.startDatetime = now_iso8601();
     Exp.rngSeed = seconds(timeofday(Exp.startDatetime));
     rng(Exp.rngSeed);
 
