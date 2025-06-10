@@ -139,7 +139,7 @@ try
     %% Open
     switch mode
         case 'demo'
-            ListenChar(2);
+            ListenChar(0);
         case 'test'
             ListenChar(2);
             HideCursor();
@@ -150,8 +150,8 @@ try
 
 catch err
 
-    closeExperiment(e, err);
-    save(fprintf('error_%s.mat', datetime('now', 'Format', 'uuuuMMdd''T''HHmmss')));
+    closeExperiment(Exp, err);
+    save(sprintf('error_%s.mat', datetime('now', 'Format', 'uuuuMMdd''T''HHmmss')));
     rethrow(err);
 
 end
