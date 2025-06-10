@@ -69,10 +69,15 @@ try
 
 
     %% Warm-Up Psychtoolbox
+    % Perform standard setup for Psychtoolbox
+    %   Set colormode clamped: [0–1] range
+    %   Reset KbName mappings & KbName('UnifyKeyNames')
+    %   Assert OpenGL
+    PsychDefaultSetup(2);
+
     GetSecs();
     WaitSecs(0.1);
     KbCheck();
-    AssertOpenGL();
     InitializePsychSound();
     
 
@@ -121,7 +126,6 @@ try
 
 
     %% I/O
-    KbName('UnifyKeyNames');
     [keyIsDown, ~, keyCode, ~] = KbCheck();
     if keyIsDown
         DisableKeysForKbCheck(find(keyCode));
