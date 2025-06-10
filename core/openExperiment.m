@@ -94,7 +94,7 @@ try
             Screen('Preference', 'SkipSyncTests', 0);
             Screen('Preference', 'VisualDebugLevel', 4);
         otherwise
-            error('PTB3-ROUTINES:UnknownExpMode', 'Unknown mode: %s', mode);
+            error('PTB3_ROUTINES:UnknownExpMode', 'Unknown mode: %s', mode);
     end
 
     % open window
@@ -135,7 +135,7 @@ try
     for ii = 1:numel(kbd)
         [kbd(ii).index, ~, ~] = GetKeyboardIndices(kbd(ii).name);
         if isempty(kbd(ii).index)
-            error('PTB3-ROUTINES:KeyboardNotFound', 'Specified keyboard was not founrd (%s)', kbd(ikd).name);
+            error('PTB3_ROUTINES:KeyboardNotFound', 'Specified keyboard was not founrd (%s)', kbd(ikd).name);
         end
 
         keys = fields(kbd(ii))';
@@ -146,11 +146,11 @@ try
         [keyIsDown, ~, keyCode, ~] = KbCheck();
         if keyIsDown
             DisableKeysForKbCheck(find(keyCode));
-            warning('PTB3-ROUTINES:DisabledKeys', 'Following keys are disabled hereafter: %s.', strjoin(string(KbName(keyCode)), ', '));
+            warning('PTB3_ROUTINES:DisabledKeys', 'Following keys are disabled hereafter: %s.', strjoin(string(KbName(keyCode)), ', '));
         end
 
         if any(ismember(ikeys, find(keyCode)))
-            error('PTB3-ROUTINES:DisabledExpKeys', 'Keys used during experiment are disabled.');
+            error('PTB3_ROUTINES:DisabledExpKeys', 'Keys used during experiment are disabled.');
         end
     end
 
@@ -164,7 +164,7 @@ try
             HideCursor();
             Priority(MaxPriority(win.ptr));
         otherwise
-            error('PTB3-ROUTINES:UnknownExpMode', 'Unknown mode: %s', mode);
+            error('PTB3_ROUTINES:UnknownExpMode', 'Unknown mode: %s', mode);
     end
 
 catch err
