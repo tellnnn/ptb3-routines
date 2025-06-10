@@ -1,4 +1,4 @@
-function [Exp, win, aud] = openExperiment(Exp, param)
+function [Exp, win, aud, kbd] = openExperiment(Exp, param)
 % openExperiment open an experiment.
 %   [Exp, win, aud] = openExperiment(Exp, param)
 %
@@ -8,12 +8,14 @@ function [Exp, win, aud] = openExperiment(Exp, param)
 %       - screen: struct containing screen parameters
 %       - window: struct containing window parameters (optional)
 %       - audio: struct containing audio parameters (optional)
+%       - keyboard: struct containing keyboard parameters (optional)
 %       - mode: string specifying the mode ('demo' or 'test': default 'test')
 %
 %   Output:
 %     Exp: updated struct with experiment parameters
 %     win: updated struct with window parameters
 %     aud: updated struct with audio parameters
+%     kbd: updated struct with keyboard parameters
 %
 %   Example:
 %     % with screen (width = 28 cm, viewing distance = 57.7 cm)
@@ -38,12 +40,14 @@ arguments
         'color', 127, 'rect', [],...
         'text', struct('size', 28, 'style', 0, 'family', 'Noto Sans', 'color', 255))
     param.audio (1,1) struct = struct()
+    param.keyboard (1,:) struct = struct()
     param.mode (1,1) string {mustBeMember(param.mode, {'demo','test'})} = 'test'
 end
 
 scr = param.screen;
 win = param.window;
 aud = param.audio;
+kbd = param.keyboard;
 mode = param.mode;
 
 % validate screen parameters
@@ -128,11 +132,26 @@ try
 
 
     %% I/O
-    [keyIsDown, ~, keyCode, ~] = KbCheck();
-    if keyIsDown
-        DisableKeysForKbCheck(find(keyCode));
-        warning('PTB3-ROUTINES:DisabledKeys', 'Following keys are pressed at the start of the experiment and disabled hereafter.\n');
-        cellfun(@(x) fprintf('  - %s\n', x), KbName(keyCode));
+    for ii = 1:numel(kbd)
+        [kbd(ii).index, ~, ~] = GetKeyboardIndices(kbd(ii).name);
+        if isempty(kbd(ii).index)
+            error('PTB3-ROUTINES:KeyboardNotFound', 'Specified keyboard was not founrd (%s)', kbd(ikd).name);
+        end
+
+        keys = fields(kbd(ii))';
+        keys = setdiff(keys, {'name', 'index'});
+        for jj = 1:numel(keys), kbd.(keys{jj}) = KbName(kbd.(keys{jj})); end
+        ikeys = arrayfun(@(jj) kbd.(keys{jj}), 1:numel(keys));
+
+        [keyIsDown, ~, keyCode, ~] = KbCheck();
+        if keyIsDown
+            DisableKeysForKbCheck(find(keyCode));
+            warning('PTB3-ROUTINES:DisabledKeys', 'Following keys are disabled hereafter: %s.', strjoin(string(KbName(keyCode)), ', '));
+        end
+
+        if any(ismember(ikeys, find(keyCode)))
+            error('PTB3-ROUTINES:DisabledExpKeys', 'Keys used during experiment are disabled.');
+        end
     end
 
 
