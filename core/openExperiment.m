@@ -69,10 +69,10 @@ try
 
 
     %% Warm-Up Psychtoolbox
-    % Perform standard setup for Psychtoolbox
-    %   Set colormode clamped: [0–1] range
-    %   Reset KbName mappings & KbName('UnifyKeyNames')
-    %   Assert OpenGL
+    % perform standard setup for Psychtoolbox
+    %   - set colormode clamped: [0–1] range
+    %   - reset KbName mappings & KbName('UnifyKeyNames')
+    %   - assert OpenGL
     PsychDefaultSetup(2);
 
     GetSecs();
