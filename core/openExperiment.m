@@ -85,8 +85,10 @@ try
     switch mode
         case 'demo'
             Screen('Preference', 'SkipSyncTests', 1);
+            Screen('Preference', 'VisualDebugLevel', 4);
         case 'test'
             Screen('Preference', 'SkipSyncTests', 0);
+            Screen('Preference', 'VisualDebugLevel', 4);
         otherwise
             error('PTB3-ROUTINES:UnknownExpMode', 'Unknown mode: %s', mode);
     end
@@ -137,9 +139,9 @@ try
     %% Open
     switch mode
         case 'demo'
-            ListenChar(-1);
+            ListenChar(2);
         case 'test'
-            ListenChar(-1);
+            ListenChar(2);
             HideCursor();
             Priority(MaxPriority(win.ptr));
         otherwise

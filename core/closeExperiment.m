@@ -16,7 +16,7 @@ end
 
 Priority(0);
 ShowCursor();
-ListenChar();
+ListenChar(0);
 
 DisableKeysForKbCheck([]);
 
