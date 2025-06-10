@@ -1,13 +1,14 @@
-function [Exp, win, aud] = openExperiment(Exp, scr, win, aud, mode)
+function [Exp, win, aud] = openExperiment(Exp, param)
 % openExperiment open an experiment.
-%   [Exp, win, aud] = openExperiment(Exp, scr, win, aud, mode)
+%   [Exp, win, aud] = openExperiment(Exp, param)
 %
 %   Input:
 %     Exp: struct containing experiment parameters
-%     scr: struct containing screen parameters
-%     win: struct containing window parameters (optional)
-%     aud: struct containing audio parameters (optional)
-%     mode: string specifying the mode ('demo' or 'test': default 'test')
+%     param: name-value pair for experiment parameters
+%       - screen: struct containing screen parameters
+%       - window: struct containing window parameters (optional)
+%       - audio: struct containing audio parameters (optional)
+%       - mode: string specifying the mode ('demo' or 'test': default 'test')
 %
 %   Output:
 %     Exp: updated struct with experiment parameters
@@ -17,27 +18,33 @@ function [Exp, win, aud] = openExperiment(Exp, scr, win, aud, mode)
 %   Example:
 %     % with screen (width = 28 cm, viewing distance = 57.7 cm)
 %     scr = struct('ptr', 0, 'width', 28, 'dist', 57.7);
-%     [Exp, win, ~] = openExperiment(Exp, scr, 'demo'); % demo mode
-%     [Exp, win, ~] = openExperiment(Exp, scr); % test mode
+%     [Exp, win, ~] = openExperiment(Exp, 'screen', scr, 'mode', 'demo'); % demo mode
+%     [Exp, win, ~] = openExperiment(Exp, 'screen', scr); % test mode
 %
 %     % specify window parameters
 %     win = struct('color', 0); % black background
-%     [Exp, win, ~] = openExperiment(Exp, scr, win);
+%     [Exp, win, ~] = openExperiment(Exp, 'screen', scr, 'window', win);
 %
 %     % specify audio parameters
 %     devices = PsychPortAudio('GetDevices');
 %     device = devices(1); % get the first audio device
 %     aud = struct('device', device); % get default audio device
+%     [Exp, win, aud] = openExperiment(Exp, 'screen', scr, 'audio', aud);
 
 arguments
     Exp (1,1) struct
-    scr (1,1) struct
-    win (1,1) struct = struct(...
+    param.screen (1,1) struct
+    param.window (1,1) struct = struct(...
         'color', 127, 'rect', [],...
         'text', struct('size', 28, 'style', 0, 'family', 'Noto Sans', 'color', 255))
-    aud (1,1) struct = struct()
-    mode (1,1) string {mustBeMember(mode, {'demo','test'})} = 'test'
+    param.audio (1,1) struct = struct()
+    param.mode (1,1) string {mustBeMember(param.mode, {'demo','test'})} = 'test'
 end
+
+scr = param.screen;
+win = param.window;
+aud = param.audio;
+mode = param.mode;
 
 % validate screen parameters
 if ~isfield(scr, 'ptr'), error('Screen pointer is not specified.'); end
