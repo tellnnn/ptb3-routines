@@ -108,6 +108,7 @@ try
     % temporal properties of window
     win.fps = Screen('FrameRate', win.ptr);
     win.ifi = Screen('GetFlipInterval', win.ptr);
+    win.hifi = win.ifi / 2;
     if win.fps == 0, win.fps = 1/win.ifi; end
 
     % text properties of window
