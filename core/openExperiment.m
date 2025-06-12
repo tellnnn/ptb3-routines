@@ -141,17 +141,16 @@ try
 
         keys = fields(kbd(ii))';
         keys = setdiff(keys, {'name', 'index'});
-        for jj = 1:numel(keys), kbd.(keys{jj}) = KbName(kbd.(keys{jj})); end
-        ikeys = arrayfun(@(jj) kbd.(keys{jj}), 1:numel(keys));
+        keys = cellfun(@(x) kbd.(x), keys, 'UniformOutput', false)';
 
         [keyIsDown, ~, keyCode, ~] = KbCheck();
         if keyIsDown
             DisableKeysForKbCheck(find(keyCode));
             warning('PTB3_ROUTINES:DisabledKeys', 'Following keys are disabled hereafter: %s.', strjoin(string(KbName(keyCode)), ', '));
-        end
-
-        if any(ismember(ikeys, find(keyCode)))
-            error('PTB3_ROUTINES:DisabledExpKeys', 'Keys used during experiment are disabled.');
+            
+            if any(ismember(KbName(keyCode), keys))
+                error('PTB3_ROUTINES:DisabledExpKeys', 'Keys used during experiment are disabled.');
+            end
         end
     end
 
