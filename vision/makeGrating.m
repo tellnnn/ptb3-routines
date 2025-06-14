@@ -37,7 +37,8 @@ arguments (Output)
     img (:,:) double {mustBeInRange(img, -1, 1)} % grating image with values between -1 and 1 in size (res, res)
 end
 
-ori = deg2rad(params.ori);
+ori = -params.ori + 90;
+ori = deg2rad(ori);
 phase = deg2rad(params.phase);
 
 f2p = params.freq * 2 * pi;
