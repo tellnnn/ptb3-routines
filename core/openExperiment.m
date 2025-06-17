@@ -56,8 +56,12 @@ if ~isfield(scr, 'width'), error('Screen width is not specified.'); end
 if ~isfield(scr, 'dist'), error('Screen viewding distance is not specified.'); end
 
 % validate window parameters
-% if text parameters in win are specified, fill non-specified parameters with defaults
-if isfield(win, 'text')
+if ~isfield(win, 'color'), win.color = 127; end
+if ~isfield(win, 'rect'), win.rect = []; end
+if ~isfield(win, 'text')
+    win.text = struct('size', 28, 'style', 0, 'family', 'Noto Sans', 'color', 255);
+else
+    % if text parameters in win are specified, fill non-specified parameters with defaults
     if ~isfield(win.text, 'size'), win.text.size = 28; end
     if ~isfield(win.text, 'style'), win.text.style = 0; end
     if ~isfield(win.text, 'family'), win.text.family = 'Noto Sans'; end
