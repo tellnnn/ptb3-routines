@@ -7,14 +7,18 @@ function img = makeMask(params)
 %    params: name-value pairs
 %      - res: resolution of the image (default 256)
 %      - type: type of mask ('ramp', 'circle', 'gauss': default 'gauss')
-%      - radius: radius of the mask in fraction of the image size (default 1.0)
+%      - radius: radius of the mask in fraction of the half image size (default 1.0)
 %          Only for 'circle' type.
-%          If the output image is supposed to be presented as 10-degree image,
-%          the radius in degrees will be 'radius' x 10.
-%      - sigma: standard deviation of the Gaussian in fraction of the image size (default 0.3)
+%          If the output image is supposed to be presented as a 10-degree
+%          image, the radius in degrees will be 'radius' x (10 / 2).
+%          In other words, if you want to specify radius of 3 degrees in a
+%          10-degree image, specify 'radius' as 3 / 10 x 2.
+%      - sigma: standard deviation of the Gaussian in fraction of the half image size (default 0.3)
 %          Only for 'gauss' type.
-%          If the output image is supposed to be presented as 10-degree image,
-%          the sigma in degrees will be 'sigma' x 10.
+%          If the output image is supposed to be presented as a 10-degree 
+%          image, the sigma in degrees will be 'sigma' x (10 / 2).
+%          In other words, if you want to specify sigma of 3 degress in a
+%          10-degree image, specify 'sigma' as 3 / 10 x 2.
 %
 %  Output:
 %    img: mask image with values between 0 and 1 in size (res, res)
