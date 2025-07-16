@@ -107,7 +107,7 @@ try
     % spatial properties of window
     [win.center(1), win.center(2)] = RectCenter(win.rect);
     [win.width, win.height] = Screen('WindowSize', win.ptr);
-    win.ppd = pi * win.width / atan(scr.width/scr.dist/2) / 360;
+    win.ppd = scr.dist/(scr.width/win.width)*tand(1);
 
     % temporal properties of window
     win.fps = Screen('FrameRate', win.ptr);
