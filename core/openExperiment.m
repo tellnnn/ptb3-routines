@@ -143,9 +143,8 @@ try
             error('PTB3_ROUTINES:KeyboardNotFound', 'Specified keyboard was not founrd (%s)', kbd(ikd).name);
         end
 
-        keys = fields(kbd(ii))';
-        keys = setdiff(keys, {'name', 'index'});
-        keys = cellfun(@(x) kbd.(x), keys, 'UniformOutput', false)';
+        keys = fields(kbd(ii).keys)';
+        keys = cellfun(@(x) kbd(ii).keys.(x), keys, 'UniformOutput', false);
 
         [keyIsDown, ~, keyCode, ~] = KbCheck();
         if keyIsDown
